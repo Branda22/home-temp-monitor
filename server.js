@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 
 var app = Express();
+
+app.set('port', (process.env.PORT || 5000));
 app.use(Express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +26,6 @@ app.post('/login', function(req, res) {
     if (auth['user'] === 'branda22') res.render('dashboard');
 });
 
-app.listen(8080, function() {
-    console.log('listening on port:', 8080);
+app.listen(app.get('port'), function() {
+    console.log('Temperature server listening on port:', app.get('port');
 });

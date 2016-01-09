@@ -7,11 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "engines": {
+    "node": "4.2.1"
+  },
+  "author": "Christian Brandalise",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Branda22/home-temp-monitor"
   }
 }

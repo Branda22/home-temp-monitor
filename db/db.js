@@ -9,7 +9,24 @@ DB.connect(function(err){
     if(err){
         console.log(err);
     } else {
-        console.log('db connect');
+        console.log('Database Connection Successful');
     }
 });
+
+var userTable = 'CREATE TABLE IF NOT EXISTS users (' +
+                    'user_name TEXT,' +
+                    'password TEXT,' +
+                    'email TEXT' +
+                ');'
+
+DB.query(userTable, function (err, results) {
+    if(err) {
+        return console.error('Error creating table users:', err)
+    }
+    console.log('Table created successfully', results);
+});
+
+var tempLog = 'CREATE TABLE IF NOT EXISTS temperature (' +
+                ''
+
 module.exports = DB;

@@ -17,14 +17,7 @@ app.use(bodyParser.json());
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function(req, res) {
-    res.render('index');
-});
-
-app.post('/login', function(req, res) {
-    var auth = req.body;
-    if (auth['user'] === 'branda22') res.render('dashboard');
-});
+require('./routes/routes.js')(app);
 
 app.listen(app.get('port'), function() {
     console.log('Temperature server listening on port:', app.get('port'));

@@ -15,7 +15,8 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
-    "express-handlebars": "^2.0.1"
+    "express-handlebars": "^2.0.1",
+    "pg": "4.4.3"
   },
   "repository": {
     "type": "git",

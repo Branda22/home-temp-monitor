@@ -4,7 +4,7 @@
 var Express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
-
+var db = require('./db/db.js');
 
 var app = Express();
 

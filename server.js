@@ -27,5 +27,5 @@ app.post('/login', function(req, res) {
 });
 
 app.listen(app.get('port'), function() {
-    console.log('Temperature server listening on port:', app.get('port');
+    console.log('Temperature server listening on port:', app.get('port'));
 });

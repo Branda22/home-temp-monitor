@@ -53,7 +53,8 @@ var Routes = function(app) {
     });
 
     app.post('/logtemp', function(req, response) {
-       console.log('data from Arduino', req.body);
+        console.log('-------------------------------------------');
+       console.log('data from Arduino', req);
         response.json({message: "Thanks Come again!"});
     });
 };

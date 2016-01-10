@@ -54,6 +54,7 @@ var Routes = function(app) {
 
     app.post('/logtemp', function(req, response) {
        console.log('data from Arduino', req.body);
+        response.json({message: "Thanks Come again!"});
     });
 };
 

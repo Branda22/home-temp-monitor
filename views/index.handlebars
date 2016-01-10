@@ -1,5 +1,12 @@
 <div class="row">
     <div class="small-12 small-centered columns">
+        {{#if error}}
+            <div class="clearfix">&nbsp;</div>
+            <div class="callout alert">
+                <p>{{error.message}}</p>
+                <a href="/signup">Plese sign up for an account</a>
+            </div>
+        {{/if}}
         <form action="/login" method="post">
             <label>
                 Username:

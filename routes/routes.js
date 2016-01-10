@@ -52,9 +52,9 @@ var Routes = function(app) {
         });
     });
 
-    app.post('/logtemp', function(req, response) {
+    app.get('/logtemp/temp/:temperature', function(req, response) {
         console.log('-------------------------------------------');
-       console.log('data from Arduino', req);
+       console.log('data from Arduino', req.params);
         response.json({message: "Thanks Come again!"});
     });
 };

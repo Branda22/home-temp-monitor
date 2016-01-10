@@ -19,6 +19,7 @@ DBservice.connectDb = function() {
 
 DBservice.createTables = function() {
     var userTable = 'CREATE TABLE IF NOT EXISTS users (' +
+                        'id SERIAL PRIMARY KEY,' +
                         'user_name TEXT,' +
                         'password TEXT,' +
                         'email TEXT' +
@@ -28,10 +29,21 @@ DBservice.createTables = function() {
         if(err) {
             return console.error('Error creating table users:', err)
         }
-        console.log('Table created successfully', results);
+        console.log('Table users created successfully', results);
     });
 
-    var tempLog = 'CREATE TABLE IF NOT EXISTS temperature (';
+    var tempLog = 'CREATE TABLE IF NOT EXISTS temperature (' +
+                        'id SERIAL PRIMARY KEY,' +
+                        'temperature DECIMAL,' +
+                        'time TIMESTAMP' +
+            ')';
+
+    DB.query(tempLog, function (err, results) {
+        if(err) {
+            return console.error('Error creating table temperature:', err)
+        }
+        console.log('Table temperature created successfully', results);
+    });
 };
 
 DBservice.getDBConnection = function() {

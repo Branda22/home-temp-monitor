@@ -54,8 +54,11 @@ var Routes = function(app) {
 
     app.get('/logtemp/temp/:temperature', function(req, response) {
         console.log('-------------------------------------------');
-       console.log('data from Arduino', req.params);
-        response.json({message: "Thanks Come again!"});
+        console.log('data from Arduino', req.params);
+        if(Object.keys(req.params) > 0) {
+
+        }
+        response.json({message: "Temperature saved to database"});
     });
 };
 

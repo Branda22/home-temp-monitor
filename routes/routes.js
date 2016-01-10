@@ -52,7 +52,7 @@ var Routes = function(app) {
         });
     });
 
-    app.post('/logtemp', function(res, res) {
+    app.post('/logtemp', function(req, res) {
        console.log('data from Arduino', res.body);
     });
 };

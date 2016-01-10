@@ -54,11 +54,14 @@ var Routes = function(app) {
 
     app.get('/logtemp/temp/:temperature', function(req, response) {
         console.log('-------------------------------------------');
-        console.log('data from Arduino', req.params);
         if(Object.keys(req.params) > 0) {
-
+            var client = db.getDBConnection();
+            client.query('INSERT INTO temperature(temperature) values($1)', [req.params.temperature], function(err, result) {
+                if(err) return console.error('Error writing temperature to the temperature table', err);
+                console.log('data saved from arduino', req.params, result);
+                response.json({message: "Temperature saved to database"});
+            });
         }
-        response.json({message: "Temperature saved to database"});
     });
 };
 

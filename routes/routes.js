@@ -51,6 +51,10 @@ var Routes = function(app) {
             }
         });
     });
+
+    app.post('/logtemp', function(res, res) {
+       console.log('data from Arduino', res.body);
+    });
 };
 
 module.exports = Routes;

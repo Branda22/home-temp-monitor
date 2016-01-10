@@ -35,7 +35,7 @@ DBservice.createTables = function() {
     var tempLog = 'CREATE TABLE IF NOT EXISTS temperature (' +
                         'id SERIAL PRIMARY KEY,' +
                         'temperature DECIMAL,' +
-                        'time TIMESTAMP' +
+                        'time TIMESTAMP default current_timestamp' +
             ')';
 
     DB.query(tempLog, function (err, results) {

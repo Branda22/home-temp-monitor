@@ -26,7 +26,7 @@ $(function(window, $){
     });
 
     $.ajax({
-        url: 'http://localhost:5000/temperature',
+        url: 'http://dry-brook-1370.herokuapp.com/login/temperature',
         type: 'GET',
         success: function(response) {
             var data = response.response;

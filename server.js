@@ -9,7 +9,7 @@ db.connectDb();
 var app = Express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(80);
+
 app.set('port', (process.env.PORT || 5000));
 app.use(Express.static('public'));
 
@@ -25,6 +25,6 @@ io.on('connection', function(socket){
 
 require('./routes/routes.js')(app, io);
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
     console.log('Temperature server listening on port:', app.get('port'));
 });

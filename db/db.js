@@ -29,7 +29,7 @@ DBservice.createTables = function() {
         if(err) {
             return console.error('Error creating table users:', err)
         }
-        console.log('Table users created successfully', results);
+        console.log('Table users created successfully');
     });
 
     var tempLog = 'CREATE TABLE IF NOT EXISTS temperature (' +
@@ -42,7 +42,7 @@ DBservice.createTables = function() {
         if(err) {
             return console.error('Error creating table temperature:', err)
         }
-        console.log('Table temperature created successfully', results);
+        console.log('Table temperature created successfully');
     });
 };
 

@@ -5,7 +5,7 @@
 var db = require('../db/db.js');
 var bcrypt = require('bcrypt');
 
-var Routes = function(app) {
+var Routes = function(app, socket) {
     app.get('/', function(req, res) {
         res.render('index');
     });
@@ -55,6 +55,9 @@ var Routes = function(app) {
     app.get('/logtemp/temp/:temperature', function(req, response) {
         console.log('-------------------------------------------');
         if(Object.keys(req.params).length > 0) {
+            socket.emit('newTemp', {
+                temperature: req.params.temperature
+            });
             var client = db.getDBConnection();
             client.query('INSERT INTO temperature(temperature) values($1)', [req.params.temperature], function(err, result) {
                 if(err) return console.error('Error writing temperature to the temperature table', err);
@@ -62,6 +65,17 @@ var Routes = function(app) {
                 response.json({message: "Temperature saved to database"});
             });
         }
+    });
+
+    app.get('/temperature', function(req, response) {
+       var client = db.getDBConnection();
+        client.query('SELECT * FROM temperature', function(err, result) {
+            if(result.rows.length > 0) {
+                response.json({
+                    response: result.rows
+                });
+            }
+        })
     });
 };
 

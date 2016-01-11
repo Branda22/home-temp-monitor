@@ -2,6 +2,48 @@
  * Created by Christian on 1/10/16.
  */
 $(function(window, $){
+
+    $outside = $('.outside-temp');
+    $chart1 = $('.chart-container');
+    $chart2 = $('.chart-container-2');
+
+
+    var url = "https://api.forecast.io/forecast/c3a3fd9ff901c07207229f0b0657e78c/87.8975, 41.7686";
+    $.ajax({
+        url: url,
+        type: 'GET',
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function(response) {
+            console.log(response);
+            setOutsideTemp(response.currently.temperature);
+            var series = helpers.prepareSeries(response.hourly.data, 'temperature', 'time');
+            $chart2.highcharts().series[0].setData(series);
+        },
+        error: function(xhr, status) {
+            console.log("error");
+        }
+    });
+
+    $.ajax({
+        url: 'http://localhost:5000/temperature',
+        type: 'GET',
+        success: function(response) {
+            var data = response.response;
+            var series = helpers.prepareSeries(data, 'temperature', 'time');
+            console.log(series);
+            $chart1.highcharts().series[0].setData(series);
+        },
+        error: function(xhr, status) {
+            console.log(error);
+        }
+    });
+
+
+    var setOutsideTemp = function(temperature) {
+        $outside.find('p').text(temperature + "°C");
+    };
+
     $('.dashboard').ready(function(e) {
         $('.chart-container').highcharts({
             title: {
@@ -13,54 +55,34 @@ $(function(window, $){
               }
             },
             xAxis: {
-                type: 'datetime'
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    minute: '%H:%M'
+                }
             },
             series: [
                 {
                     name: '2nd Floor',
-                    data: [
-                        [Date.UTC(1970, 9, 21), 0],
-                        [Date.UTC(1970, 10, 4), 0.28],
-                        [Date.UTC(1970, 10, 9), 0.25],
-                        [Date.UTC(1970, 10, 27), 0.2],
-                        [Date.UTC(1970, 11, 2), 0.28],
-                        [Date.UTC(1970, 11, 26), 0.28],
-                        [Date.UTC(1970, 11, 29), 0.47],
-                        [Date.UTC(1971, 0, 11), 0.79],
-                        [Date.UTC(1971, 0, 26), 0.72],
-                        [Date.UTC(1971, 1, 3), 1.02],
-                        [Date.UTC(1971, 1, 11), 1.12],
-                        [Date.UTC(1971, 1, 25), 1.2],
-                        [Date.UTC(1971, 2, 11), 1.18],
-                        [Date.UTC(1971, 3, 11), 1.19],
-                        [Date.UTC(1971, 4, 1), 1.85],
-                        [Date.UTC(1971, 4, 5), 2.22],
-                        [Date.UTC(1971, 4, 19), 1.15],
-                        [Date.UTC(1971, 5, 3), 0]
-                    ]
-                },
+                    data: []
+                }
+            ]
+        });
+        $('.chart-container-2').highcharts({
+            title: {
+                text: 'Temperature History'
+            },
+            yAxis: {
+                title: {
+                    text: 'Outside Temperature (°C)'
+                }
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            series: [
                 {
                     name: 'Outside',
-                    data: [
-                        [Date.UTC(1970, 9, 21), 0],
-                        [Date.UTC(1970, 10, 4), 0.1],
-                        [Date.UTC(1970, 10, 9), 0.15],
-                        [Date.UTC(1970, 10, 27), 0.25],
-                        [Date.UTC(1970, 11, 2), 0.29],
-                        [Date.UTC(1970, 11, 26), 0.8],
-                        [Date.UTC(1970, 11, 29), 0.27],
-                        [Date.UTC(1971, 0, 11), 0.39],
-                        [Date.UTC(1971, 0, 26), 0.32],
-                        [Date.UTC(1971, 1, 3), 0.02],
-                        [Date.UTC(1971, 1, 11), 0.22],
-                        [Date.UTC(1971, 1, 25), 1.0],
-                        [Date.UTC(1971, 2, 11), 0.18],
-                        [Date.UTC(1971, 3, 11), 0.25],
-                        [Date.UTC(1971, 4, 1), 0.65],
-                        [Date.UTC(1971, 4, 5), 1.02],
-                        [Date.UTC(1971, 4, 19), 1.01],
-                        [Date.UTC(1971, 5, 3), 0]
-                    ]
+                    data: []
                 }
             ]
         });

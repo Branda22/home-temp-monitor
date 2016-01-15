@@ -32,14 +32,17 @@ var Routes = function(app, socket) {
     });
 
     app.post('/login', function(req, response) {
+        var sess = req.session;
+        console.log('session', sess);
         var loginInfo = req.body;
         var client = db.getDBConnection();
         client.query('SELECT * FROM users WHERE user_name = $1',
-            [loginInfo.user], function(err, res) {
+            [loginInfo.user], function(err, result) {
             if(err) return console.error('SELECT error', err);
-            if(res.rows.length) {
-                bcrypt.compare(loginInfo.password, res.rows[0].password, function(err, res){
+            if(result.rows.length) {
+                bcrypt.compare(loginInfo.password, result.rows[0].password, function(err, res){
                     if(err) return console.error('bcrypt error', err);
+                    sess.email = result.rows[0].email;
                     if(res) response.render('dashboard');
                 });
             } else {
@@ -50,6 +53,24 @@ var Routes = function(app, socket) {
                 });
             }
         });
+    });
+
+    app.get('/logout', function(request, response) {
+        var sess = request.session;
+       if(sess.email) {
+           sess.destroy(function() {
+              response.render('index');
+           });
+       }
+    });
+
+    app.get('/dashboard', function(request, response) {
+        var sess = request.session;
+        if(sess.email) {
+            response.redirect('dashboard');
+        } else {
+            response.render('index');
+        }
     });
 
     app.get('/logtemp/temp/:temperature', function(req, response) {

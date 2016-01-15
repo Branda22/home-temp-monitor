@@ -4,6 +4,8 @@
 var Express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+
 var db = require('./db/db.js');
 db.connectDb();
 var app = Express();
@@ -13,8 +15,14 @@ var io = require('socket.io')(server);
 app.set('port', (process.env.PORT || 5000));
 app.use(Express.static('public'));
 
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(session({
+    secret: 'ZHFRDtYFsdr',
+    resave: true,
+    saveUninitialized: true
+}));
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
